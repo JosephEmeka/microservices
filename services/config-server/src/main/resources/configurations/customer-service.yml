@@ -1,0 +1,13 @@
+  spring:
+    data:
+      mongodb:
+        username: joeking
+        password: joeking
+        host: localhost
+        port: 27017
+        database: customer
+        authentication-database: admin
+        uri: mongodb://joeking:joeking@localhost:27017/customer?authSource=admin
+        auto-index-creation: true
+  server:
+    port: 8090
