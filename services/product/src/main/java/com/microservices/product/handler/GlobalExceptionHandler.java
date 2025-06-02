@@ -2,7 +2,8 @@ package com.microservices.product.handler;
 
 
 import com.microservices.product.exceptions.CustomersNotFoundException;
-import org.springframework.http.HttpStatus;
+import com.microservices.product.exceptions.ProductPurchaseException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,13 +12,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(CustomersNotFoundException.class)
+    @ExceptionHandler(ProductPurchaseException.class)
     public ResponseEntity<String> handler(CustomersNotFoundException exp){
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
+                .status(BAD_REQUEST)
                 .body(exp.getMsg());
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handler(EntityNotFoundException exp){
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(exp.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -30,7 +40,7 @@ public class GlobalExceptionHandler {
                     errors.put(fieldName, errorMessage);
                     });
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(BAD_REQUEST)
                 .body(new ErrorResponse(errors));
                 }
 
