@@ -1,4 +1,4 @@
-package com.microservices.order.data.models.products;
+package com.microservices.order.dto.requests;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

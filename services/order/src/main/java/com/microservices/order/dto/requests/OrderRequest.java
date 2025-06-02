@@ -1,7 +1,6 @@
 package com.microservices.order.dto.requests;
 
 import com.microservices.order.constants.PaymentMethod;
-import com.microservices.order.data.models.products.PurchaseRequest;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public record OrderRequest(
-        Integer id,
+        Integer orderId,
         String reference,
         @Positive(message = "Order amount should be positive")
         BigDecimal amount,

@@ -1,7 +1,7 @@
 package com.microservices.order.controllers;
 
 import com.microservices.order.dto.requests.OrderRequest;
-import com.microservices.order.services.OrderService;
+import com.microservices.order.services.OrderServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
 public class OrderController {
-    private final OrderService service;
+    private final OrderServiceImpl orderServiceImpl;
 
     @PostMapping
     public ResponseEntity<Integer> createOrder(
             @RequestBody @Valid OrderRequest request){
         return
-                ResponseEntity.ok(service.createOrder(request));
+                ResponseEntity.ok(orderServiceImpl.createOrder(request));
     }
 
 }

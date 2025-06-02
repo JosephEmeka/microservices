@@ -2,9 +2,11 @@ package com.microservices.customer.controllers;
 
 import com.microservices.customer.dto.requests.CustomerRequests.CustomerRequest;
 import com.microservices.customer.dto.responses.CustomerResponse;
-import com.microservices.customer.services.CustomerServiceImpl;
+
+import com.microservices.customer.services.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,44 +17,43 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final CustomerServiceImpl customerServiceimpl;
-
+    private final CustomerService customerServices;
     @PostMapping
     public ResponseEntity<?> createCustomer(@RequestBody @Valid CustomerRequest customerRequest) {
 
-        return ResponseEntity.ok(customerServiceimpl.createCustomer(customerRequest));
+        return ResponseEntity.ok(customerServices.createCustomer(customerRequest));
 
     }
 
     @PutMapping
     public ResponseEntity<?> updateCustomer(@RequestBody @Valid CustomerRequest customerRequest) {
-        customerServiceimpl.updateCustomer(customerRequest);
+        customerServices.updateCustomer(customerRequest);
         return ResponseEntity.accepted().build();
     }
 
     @GetMapping
     public ResponseEntity<List<CustomerResponse>> findAll() {
-        return ResponseEntity.ok(customerServiceimpl.findAllCustomers());
+        return ResponseEntity.ok(customerServices.findAllCustomers());
     }
 
     @GetMapping("/exists/{customer-id}")
     public ResponseEntity<Boolean> existsById(
             @PathVariable("customer-id") String customerId) {
-        return ResponseEntity.ok(customerServiceimpl.existsByCustomerId(customerId));
+        return ResponseEntity.ok(customerServices.existsByCustomerId(customerId));
     }
 
 
     @GetMapping("/{customer-id}")
     public ResponseEntity<CustomerResponse> findById(
             @PathVariable("customer-id") String customerId) {
-        return ResponseEntity.ok(customerServiceimpl.findByCustomerId(customerId));
+        return ResponseEntity.ok(customerServices.findByCustomerId(customerId));
     }
 
     @DeleteMapping("/{customer-id}")
     public ResponseEntity<Void> delete(
             @PathVariable("customer-id") String customerId
     ) {
-        customerServiceimpl.deleteCustomer(customerId);
+        customerServices.deleteCustomer(customerId);
         return ResponseEntity.accepted().build();
     }
 

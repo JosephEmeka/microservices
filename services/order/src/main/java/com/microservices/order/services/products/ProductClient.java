@@ -1,5 +1,6 @@
-package com.microservices.order.data.models.products;
+package com.microservices.order.services.products;
 
+import com.microservices.order.dto.requests.PurchaseRequest;
 import com.microservices.order.dto.responses.PurchaseResponse;
 import com.microservices.order.exceptions.BusinessException;
 import lombok.RequiredArgsConstructor;
